@@ -38,7 +38,42 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    // write your solution here
+    const result = [];
+    const dot = '10';
+    const dash = '11';
+    // разобьём слово на отдельные символы, буквы
+    let array = expr.split('');
+    // итерируем каждый её символ по отдельности
+    for(let i = 0; i <= array.length; i++){
+        // вкладываем конкретный итерируемый символ в переменную для удобства
+        let char = array[i];
+        // булевая переменная отвечающая на вопрос -- есть ли такой символ в объекте азбуки морзы?
+        let charMorse = null;
+
+        // перебираем весь объект на поиск сходства пары ключ значение и присваиваем ключ в переменную charMorse
+        for(let key in MORSE_TABLE) {
+            if (MORSE_TABLE[key] === char){
+                charMorse = key;
+                break
+            }
+        }
+
+        // если символ есть в нашем объекте, то выполняем...
+        if(charMorse === String){
+            
+            result.push()
+        }
+        // если символ был не найден в объекте, то выполняем в остальном случае... 
+        else {
+            
+        }
+    }
+    return result.join()
+
+
+    // переводим символы в азбуку морзе 
+    // переводим символы азбуки морзе в 0 и 1
+    // получаем строку из 0 и 1
 }
 
 module.exports = {
