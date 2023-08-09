@@ -38,6 +38,7 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
+    let entries = Object.entries(MORSE_TABLE);
     const result = [];
     const dot = '10';
     const dash = '11';
@@ -52,7 +53,7 @@ function decode(expr) {
 
         // перебираем весь объект на поиск сходства пары ключ значение и присваиваем ключ в переменную charMorse
         for(let key in MORSE_TABLE) {
-            if (MORSE_TABLE[key] === char){
+            if (entries[key] === char){
                 charMorse = key;
                 break
             }
