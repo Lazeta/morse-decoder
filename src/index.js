@@ -37,46 +37,52 @@ const MORSE_TABLE = {
     '-----':  '0',
 };
 
-function decode(expr) {
-    let entries = Object.entries(MORSE_TABLE);
-    const result = [];
-    const dot = '10';
-    const dash = '11';
-    // разобьём слово на отдельные символы, буквы
-    let array = expr.split('');
-    // итерируем каждый её символ по отдельности
-    for(let i = 0; i <= array.length; i++){
-        // вкладываем конкретный итерируемый символ в переменную для удобства
-        let char = array[i];
-        // булевая переменная отвечающая на вопрос -- есть ли такой символ в объекте азбуки морзы?
-        let charMorse = null;
+function decode(bits) {
+    console.log(bits)
+    // 1. Проверка и дополнение нулями
+    const length = bits.length;
+    const paddingLeft = length % 10 === 0 ? '' : 10 - (length % 10);
+    bits = "0".repeat(paddingLeft) + bits;
 
-        // перебираем весь объект на поиск сходства пары ключ значение и присваиваем ключ в переменную charMorse
-        for(let key in MORSE_TABLE) {
-            if (entries[key] === char){
-                charMorse = key;
-                break
-            }
-        }
+    // 2. Разбиение строки на группы по 10 символов
+    let newStr = bits.match(/.{1,10}/g).join(" ");
+    console.log(newStr)
 
-        // если символ есть в нашем объекте, то выполняем...
-        if(charMorse === String){
-            
-            result.push()
+    // 3. Декодирование
+    let decodeStr = "";
+    for(let i = 0; i < newStr.length; i++){
+        if(newStr[i] === " "){ 
+            decodeStr += " ";
         }
-        // если символ был не найден в объекте, то выполняем в остальном случае... 
-        else {
-            
+        if(newStr[i] == 1 && newStr[i+1] == 0 && newStr[i+2] != 0){
+            decodeStr += ".";
+        }
+        if(newStr[i] == 1 && newStr[i+1] == 1 && newStr[i+2] != 0){
+            decodeStr += "-";
         }
     }
-    return result.join()
+    
+    // 4. Разбиваем на массив
+    decodeStr = decodeStr.split("  ");
 
+    // 5. 
+    const result = decodeStr.map(word => {
+        if (word === "") {
+            return " ";
+        }
+        let letters = word.split(" ");
+        return letters.map(letter => MORSE_TABLE[letter]).join("");
+    });
 
-    // переводим символы в азбуку морзе 
-    // переводим символы азбуки морзе в 0 и 1
-    // получаем строку из 0 и 1
+    return result
 }
 
-module.exports = {
-    decode
-}
+console.log(decode("00000011110000000010"))
+console.log(decode("000000111100000000000000001111"))
+// console.log(decode("000000111100000000100000000000000000011110000000010"))
+// console.log(decode("00000011110000000010000000111000111000001110001110111000000000000111011101110001110111011100000000001110111"))
+
+
+// module.exports = {
+//     decode
+// }
