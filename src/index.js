@@ -68,17 +68,14 @@ function decode(bits) {
     
     // 4. Разбиваем на массив
     let decodeWord = decodeStr.split("*");
-    let letters = decodeWord.join('').split(" ");
 
-    // 5. 
+    // 5. Формируем результат в новый массив
     const result = decodeWord.map(word => {
-        if (word === "") {
-            return " ";
-        }
         let letters = word.split(" ");
         return letters.map(letter => MORSE_TABLE[letter]).join("");
     });
 
+    // 6. Вызываем результат строки из массива
     return result.join(' ')
 }
 
